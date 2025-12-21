@@ -47,7 +47,6 @@ public class ChatUser extends StringReader {
                 }
             });
 
-            // Writer thread
             Thread writer = new Thread(() -> {
                 while (true) {
                     String msg = readString("");
@@ -61,8 +60,8 @@ public class ChatUser extends StringReader {
             reader.start();
             writer.start();
 
-            writer.join();   // wait until user exits
-            socket.close();  // close everything cleanly
+            writer.join();
+            socket.close();
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
