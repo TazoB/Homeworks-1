@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -82,7 +83,7 @@ public class ClientHandler implements Runnable {
                         }
                         out.println("Username already taken.");
                     }
-                    out.println("You have successfully changed your username to: " + username);
+                    out.println("You have successfully changed your username to " + username);
                     continue;
                 } else if(msg.equals("/leave")) {
                     out.println("Are you sure you want to leave the chat? (Y/N):");
@@ -93,6 +94,13 @@ public class ClientHandler implements Runnable {
                         out.println("Goodbye!!!");
                         break;
                     }
+                } else if(msg.equals("/users")) {
+                    List<ClientHandler> sockets = ChatRoom.sockets;
+                    out.println("There are " + sockets.size() + " members in the chat:");
+                    for (int i = 0; i < sockets.size(); i++) {
+                        out.println(i+1 + ". " + sockets.get(i).getUsername());
+                    }
+                    continue;
                 }
                 ChatRoom.broadcast(username + ": " + msg);
             }
