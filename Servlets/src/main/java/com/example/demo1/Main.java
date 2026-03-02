@@ -15,17 +15,17 @@ public class Main {
 
         String contextPath = "";
         String docBase = new File("src/main/webapp").getAbsolutePath();
-        System.out.println("DocBase: " + docBase);
 
         Context context = tomcat.addContext(contextPath, docBase);
 
         context.addWelcomeFile("index.html");
         Tomcat.addDefaultMimeTypeMappings(context);
         Tomcat.addServlet(context, "default", new DefaultServlet());
+        Tomcat.addServlet(context, "dataServlet", new DataServlet());
+        context.addServletMappingDecoded("/data/*", "dataServlet");
 
         context.addServletMappingDecoded("/", "default");
-        Tomcat.addServlet(context, "helloServlet", new HelloServlet());
-        context.addServletMappingDecoded("/hello-servlet", "helloServlet");
+
 
         tomcat.start();
         tomcat.getConnector();

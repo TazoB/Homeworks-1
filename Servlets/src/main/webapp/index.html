@@ -1,50 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>FreshMart Grocery Store</title>
     <meta charset="UTF-8">
 </head>
 <body>
 
-<h1>🛒 Welcome to FreshMart Grocery Store</h1>
+<h1>Welcome to FreshMart Grocery Store</h1>
 
-<p>Your neighborhood store for fresh food and everyday essentials!</p>
+<h2>Add Product</h2>
+<form action="/data" method="post">
+    ID: <input type="number" name="id"><br><br>
+    Name: <input type="text" name="name"><br><br>
+    Price: <input type="number" step="0.01" name="price"><br><br>
+    Quantity: <input type="number" name="quantity"><br><br>
+    <button type="submit">Add Item</button>
+</form>
 
-<hr>
+<h2>Update Product</h2>
+<form action="/data" method="post">
+    <input type="hidden" name="_method" value="put">
 
-<h2>Categories</h2>
-<ul>
-    <li>🥦 Fresh Vegetables</li>
-    <li>🍎 Fruits</li>
-    <li>🥩 Meat & Poultry</li>
-    <li>🥛 Dairy Products</li>
-    <li>🍞 Bakery</li>
-    <li>🥤 Beverages</li>
-</ul>
+    ID (required): <input type="number" name="id"><br><br>
 
-<hr>
+    New Price: <input type="number" step="0.01" name="price"><br><br>
 
-<h2>Today's Special Offers</h2>
-<ol>
-    <li>Apples - $1.99 / kg</li>
-    <li>Milk - $0.99</li>
-    <li>Fresh Bread - $1.50</li>
-</ol>
+    New Quantity: <input type="number" name="quantity"><br><br>
 
-<hr>
+    <button type="submit">Update Item</button>
+</form>
 
-<hr>
-
-<h3>Contact Us</h3>
-<p>
-    📍 123 Main Street<br>
-    📞 +1 234 567 890<br>
-    📧 contact@freshmart.com
-</p>
-
-<hr>
-
-<p>© 2026 FreshMart Grocery Store</p>
-
+<h2>Delete Product</h2>
+<form action="/data" method="post">
+    <input type="hidden" name="_method" value="delete">
+    ID: <input type="number" name="id"><br><br>
+    <button type="submit">Delete Item</button>
+</form>
 </body>
 </html>
