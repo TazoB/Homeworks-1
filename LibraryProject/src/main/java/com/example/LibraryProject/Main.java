@@ -2,6 +2,7 @@ package com.example.LibraryProject;
 
 import com.example.LibraryProject.Database.DatabaseConnectionManager;
 import com.example.LibraryProject.Servlets.BookServlet;
+import com.example.LibraryProject.Servlets.MemberServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
