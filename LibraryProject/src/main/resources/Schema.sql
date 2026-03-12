@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Members (
 );
 
 CREATE TABLE IF NOT EXISTS Borrowings (
-	    book_code VARCHAR(20),
+	book_code VARCHAR(20),
     member_id INT,
     borrow_date DATE,
     return_date DATE,
