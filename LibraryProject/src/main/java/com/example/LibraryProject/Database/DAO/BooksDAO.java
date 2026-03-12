@@ -23,7 +23,7 @@ public class BooksDAO {
     }
 
     public void insert(Book book) {
-        String INSERT = "INSERT INTO Books (code, title, author) VALUES (?, ?, ?)";
+        String INSERT = "INSERT INTO Books (code, title, author) VALUES (?, ?, ?);";
 
         try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
             ps.setString(1, book.getCode());
@@ -36,9 +36,9 @@ public class BooksDAO {
     }
 
     public Book findByCode(String code) {
-        String FIND_BY_ID = "SELECT * FROM Books WHERE code = '?';";
+        String FIND_BY_CODE = "SELECT * FROM Books WHERE code = '?';";
 
-        try (PreparedStatement ps = connection.prepareStatement(FIND_BY_ID)) {
+        try (PreparedStatement ps = connection.prepareStatement(FIND_BY_CODE)) {
             ps.setString(1, code);
             ResultSet rs = ps.executeQuery();
 

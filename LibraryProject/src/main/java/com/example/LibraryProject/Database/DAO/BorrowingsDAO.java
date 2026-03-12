@@ -1,4 +1,86 @@
 package com.example.LibraryProject.Database.DAO;
 
+import com.example.LibraryProject.Database.DatabaseConnectionManager;
+import com.example.LibraryProject.Model.Borrowing;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BorrowingsDAO {
+    private static final DatabaseConnectionManager dbcm = DatabaseConnectionManager.getInstance();
+    private static final Connection connection;
+
+    static {
+        try {
+            connection = dbcm.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void insert(Borrowing borrowing) {
+        String INSERT = "INSERT INTO Borrowings (book_code, member_id, borrow_date, return_date) VALUES (?, ?, ?, ?);";
+
+        try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
+            ps.setString(1, borrowing.getBookCode());
+            ps.setInt(2, borrowing.getMemberId());
+            ps.setDate(3, (borrowing.getBorrowDate() == null) ? null : borrowing.getBorrowDate());
+            ps.setDate(4, (borrowing.getReturnDate() == null) ? null : borrowing.getReturnDate());
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Borrowing findById(String bookCode, int memberId, Date borrowDate) {
+        String FIND_BY_ID = "SELECT * FROM Borrowings WHERE book_code = ?, member_id = ?, borrow_date = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_BY_ID)) {
+            ps.setString(1, bookCode);
+            ps.setInt(2, memberId);
+            ps.setDate(3, borrowDate);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return new Borrowing(
+                        bookCode,
+                        memberId,
+                        borrowDate,
+                        (rs.getDate(4) == null) ? null : rs.getDate(4)
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public List<Borrowing> findAll() {
+        String FIND_ALL = "SELECT * FROM Borrowings;";
+        List<Borrowing> borrowings = new ArrayList<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_ALL)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                borrowings.add(new Borrowing(
+                        rs.getString(1),
+                        rs.getInt(2),
+                        (rs.getDate(3) == null) ? null : rs.getDate(3),
+                        (rs.getDate(4) == null) ? null : rs.getDate(4)
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return borrowings;
+    }
+
+//    public void delete() {
+//
+//    }
+
+//    public void update() {
+//
+//    }
 }

@@ -11,7 +11,7 @@ public class DatabaseConnectionManager {
     private static final String URL = "jdbc:postgresql://localhost:5432/Library Database";
     private static final String USER = "postgres";
     private static final String PASSWORD = "mskhj";
-
+    private static Connection connection;
 
     public DatabaseConnectionManager() {
     }
@@ -31,7 +31,7 @@ public class DatabaseConnectionManager {
         }
 
         try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = connection.createStatement();
             File schemaFile = new File("src/main/resources/Schema.sql");
             String schemaText = getSchema(schemaFile);
