@@ -15,6 +15,11 @@ public class Member {
         this.joinDate = joinDate;
     }
 
+    public Member(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public int getId() {
         return id;
     }

@@ -20,12 +20,11 @@ public class MembersDAO {
     }
 
     public void insert(Member member) {
-        String INSERT = "INSERT INTO Members (name, email, join_date) VALUES (?, ?, ?);";
+        String INSERT = "INSERT INTO Members (name, email) VALUES (?, ?);";
 
         try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
             ps.setString(1, member.getName());
             ps.setString(2, member.getEmail());
-            ps.setDate(3, (member.getJoinDate() == null) ? null : member.getJoinDate());
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
