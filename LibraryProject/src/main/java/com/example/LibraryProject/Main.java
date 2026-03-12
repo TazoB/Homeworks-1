@@ -28,6 +28,9 @@ public class Main {
         Tomcat.addServlet(context, "memberServlet", new MemberServlet());
         context.addServletMappingDecoded("/members/*", "memberServlet");
 
+        Tomcat.addServlet(context, "borrowServlet", new BorrowServlet());
+        context.addServletMappingDecoded("/borrow/*", "borrowServlet");
+
         tomcat.start();
         tomcat.getConnector();
         tomcat.getServer().await();
