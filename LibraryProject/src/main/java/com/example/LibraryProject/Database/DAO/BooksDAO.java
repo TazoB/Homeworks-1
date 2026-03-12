@@ -36,7 +36,7 @@ public class BooksDAO {
     }
 
     public Book findByCode(String code) {
-        String FIND_BY_CODE = "SELECT * FROM Books WHERE code = '?';";
+        String FIND_BY_CODE = "SELECT * FROM Books WHERE code = ?;";
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_BY_CODE)) {
             ps.setString(1, code);
