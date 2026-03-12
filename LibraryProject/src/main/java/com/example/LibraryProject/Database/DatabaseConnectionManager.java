@@ -41,6 +41,10 @@ public class DatabaseConnectionManager {
         }
     }
 
+    public Connection getConnection() throws SQLException {
+        return connection;
+    }
+
     private static String getSchema(File file) {
         try (BufferedReader in = new BufferedReader(
                 new FileReader(file)
