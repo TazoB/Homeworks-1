@@ -24,6 +24,9 @@ public class Main {
         Tomcat.addServlet(context, "bookServlet", new BookServlet());
         context.addServletMappingDecoded("/books/*", "bookServlet");
 
+        Tomcat.addServlet(context, "memberServlet", new MemberServlet());
+        context.addServletMappingDecoded("/members/*", "memberServlet");
+
         tomcat.start();
         tomcat.getConnector();
         tomcat.getServer().await();
