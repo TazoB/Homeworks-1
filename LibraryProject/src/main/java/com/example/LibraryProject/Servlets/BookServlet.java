@@ -26,9 +26,16 @@ public class BookServlet extends HttpServlet {
 
         if (pathInfo == null || pathInfo.equals("/")) {
             List<Book> books = booksDAO.findAll();
-            for (Book book : books) {
-                out.println(book + "<br>");
+            out.println("<h1>Books</h1>");
+            out.println("<ul>");
+
+            for(Book b : books){
+                out.println("<li>[" + b.getCode() + "] "
+                        + b.getTitle() + " - "
+                        + b.getAuthor() + "</li>");
             }
+
+            out.println("</ul>");
         } else {
             String code = pathInfo.substring(1);
             Book book = booksDAO.findByCode(code);
@@ -37,13 +44,37 @@ public class BookServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 out.println("<p>Book Not Found</p>");
             } else {
-                out.println(book + "<br>");
+                out.println("<h1>Book:</h1>");
+                out.println("<ul>");
+                out.println("<li>[" + book.getCode() + "] "
+                        + book.getTitle() + " - "
+                        + book.getAuthor() + "</li>");
+                out.println("</ul>");
             }
         }
+        out.println("<br>");
+        out.println("""
+            <h2>Add Book</h2>
+            <form method="POST" action="/books">
+            Code: <input name="code"><br>
+            Title: <input name="title"><br>
+            Author: <input name="author"><br>
+            <button type="submit">Add</button>
+            </form>
+        """);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String code = req.getParameter("code");
+        String title = req.getParameter("title");
+        String author = req.getParameter("author");
+
+        booksDAO.insert(new Book(
+                code,
+                title,
+                author
+        ));
+        resp.sendRedirect("/books");
     }
 }
