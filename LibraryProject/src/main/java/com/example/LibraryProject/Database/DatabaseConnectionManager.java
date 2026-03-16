@@ -13,7 +13,7 @@ public class DatabaseConnectionManager {
     private static final String PASSWORD = "mskhj";
     private static Connection connection;
 
-    public DatabaseConnectionManager() {
+    private DatabaseConnectionManager() {
     }
 
     public static DatabaseConnectionManager getInstance() {
