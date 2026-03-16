@@ -20,8 +20,8 @@ public class Main {
         tomcat.setPort(8080);
 
         String contextPath = "";
-        String docBase = new File("").getAbsolutePath();
-        Context context = tomcat.addContext(contextPath, docBase);
+        String docBase = "src/main/webapp";
+        Context context = tomcat.addContext(contextPath, new File(docBase).getAbsolutePath());
 
         Tomcat.addServlet(context, "bookServlet", new BookServlet());
         context.addServletMappingDecoded("/books/*", "bookServlet");
@@ -31,6 +31,9 @@ public class Main {
 
         Tomcat.addServlet(context, "borrowServlet", new BorrowServlet());
         context.addServletMappingDecoded("/borrow/*", "borrowServlet");
+
+        Tomcat.addServlet(context, "default", "org.apache.catalina.servlets.DefaultServlet");
+        context.addServletMappingDecoded("/", "default");
 
         tomcat.start();
         tomcat.getConnector();

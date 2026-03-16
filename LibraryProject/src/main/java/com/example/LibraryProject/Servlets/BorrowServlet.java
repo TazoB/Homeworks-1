@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import java.util.List;
 public class BorrowServlet extends HttpServlet {
     private final DatabaseConnectionManager dbcm = DatabaseConnectionManager.getInstance();
     private BorrowingsDAO borrowingsDAO = new BorrowingsDAO();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -26,26 +28,15 @@ public class BorrowServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
 
         List<Borrowing> borrowings = borrowingsDAO.findAll();
-        MembersDAO membersDAO = new MembersDAO();
-        out.println("<h1>Borrowings</h1>");
-        out.println("<ul>");
-
-        for(Borrowing b : borrowings){
-            Member member = membersDAO.findById(b.getMemberId());
-            out.println("<li>" + b.getBookCode() + " - "
-                    + member.getName() + " ["
-                    + b.getBorrowDate() + " - " + b.getReturnDate() + "]</li>");
-        }
-        out.println("</ul>");
-
+        objectMapper.writeValue(out, borrowings);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
 }
