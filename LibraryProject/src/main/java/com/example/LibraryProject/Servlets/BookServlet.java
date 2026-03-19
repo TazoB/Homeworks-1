@@ -35,15 +35,6 @@ public class BookServlet extends HttpServlet {
             List<Book> books = booksDAO.findAll();
             objectMapper.writeValue(out, books);
 
-        } else {
-            String code = pathInfo.substring(1);
-            Book book = booksDAO.findByCode(code);
-
-            if(book == null) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            } else {
-                objectMapper.writeValue(out, book);
-            }
         }
     }
 
