@@ -50,7 +50,11 @@ public class MemberServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
 
-        membersDAO.insert(new Member(name, email));
-        resp.sendRedirect("/members");
+        if(memberExists(email)) {
+            resp.sendError(HttpServletResponse.SC_UNPROCESSABLE_CONTENT, "Member with this email already exists");
+        } else {
+            membersDAO.insert(new Member(name, email));
+            resp.sendRedirect("/members.html");
+        }
     }
 }
