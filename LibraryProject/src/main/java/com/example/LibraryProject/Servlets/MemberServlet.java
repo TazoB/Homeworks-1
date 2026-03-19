@@ -5,6 +5,7 @@ import com.example.LibraryProject.Database.DatabaseConnectionManager;
 import com.example.LibraryProject.Model.Member;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+@WebServlet("/members")
 public class MemberServlet extends HttpServlet {
     private final DatabaseConnectionManager dbcm = DatabaseConnectionManager.getInstance();
     private MembersDAO membersDAO = new MembersDAO();
@@ -56,5 +58,13 @@ public class MemberServlet extends HttpServlet {
             membersDAO.insert(new Member(name, email));
             resp.sendRedirect("/members.html");
         }
+    }
+
+    private boolean memberExists(String email) {
+        List<Member> members = membersDAO.findAll();
+        for(Member member : members) {
+            if(member.getEmail().equals(email)) return true;
+        }
+        return false;
     }
 }
