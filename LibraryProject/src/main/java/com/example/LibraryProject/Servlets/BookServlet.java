@@ -44,12 +44,16 @@ public class BookServlet extends HttpServlet {
         String title = req.getParameter("title");
         String author = req.getParameter("author");
 
-        booksDAO.insert(new Book(
-                code,
-                title,
-                author
-        ));
-        resp.sendRedirect("/books.html");
+        if(bookExists(code)) {
+            resp.sendError(HttpServletResponse.SC_UNPROCESSABLE_CONTENT, "The book with this code already exists");
+        } else {
+            booksDAO.insert(new Book(
+                    code,
+                    title,
+                    author
+            ));
+            resp.sendRedirect("/books.html");
+        }
     }
 
     private boolean bookExists(String code) {
