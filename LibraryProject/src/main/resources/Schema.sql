@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS Members (
 CREATE TABLE IF NOT EXISTS Borrowings (
 	book_code VARCHAR(20),
     member_id INT,
-    borrow_date DATE,
-    return_date DATE,
+    borrow_date DATE DEFAULT CURRENT_DATE,
+    return_date DATE DEFAULT NULL,
 
     PRIMARY KEY (book_code, member_id, borrow_date),
 
