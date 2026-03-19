@@ -76,6 +76,18 @@ public class BorrowingsDAO {
         return borrowings;
     }
 
+    public void update(String bookCode) {
+        String UPDATE = "UPDATE Borrowings SET return_date = ? WHERE book_code = ?";
+
+        try(PreparedStatement ps = connection.prepareStatement(UPDATE)) {
+            ps.setDate(1, Date.valueOf(LocalDate.now()));
+            ps.setString(2, bookCode);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    public void delete() {
 //
 //    }
