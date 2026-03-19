@@ -30,7 +30,7 @@ public class Main {
         context.addServletMappingDecoded("/members/*", "memberServlet");
 
         Tomcat.addServlet(context, "borrowServlet", new BorrowServlet());
-        context.addServletMappingDecoded("/borrow/*", "borrowServlet");
+        context.addServletMappingDecoded("/borrows/*", "borrowServlet");
 
         Tomcat.addServlet(context, "default", "org.apache.catalina.servlets.DefaultServlet");
         context.addServletMappingDecoded("/", "default");
