@@ -51,4 +51,14 @@ public class BookServlet extends HttpServlet {
         ));
         resp.sendRedirect("/books.html");
     }
+
+    private boolean bookExists(String code) {
+        List<Book> books = booksDAO.findAll();
+        for(Book book : books) {
+            if(book.getCode().equals(code)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
