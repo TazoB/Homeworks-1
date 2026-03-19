@@ -52,6 +52,27 @@ public class MembersDAO {
         return null;
     }
 
+    public Member findByEmail(String email) {
+        String FIND_BY_EMAIL = "SELECT * FROM Members WHERE email = ?;";
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_BY_EMAIL)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return new Member(
+                        rs.getInt(1),
+                        email,
+                        rs.getString(3),
+                        (rs.getDate(4) == null) ? null : rs.getDate(4)
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     public List<Member> findAll() {
         String FIND_ALL = "SELECT * FROM Members;";
         List<Member> members = new ArrayList<>();
