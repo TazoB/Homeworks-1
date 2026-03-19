@@ -15,6 +15,11 @@ public class Borrowing {
         this.returnDate = returnDate;
     }
 
+    public Borrowing(String bookCode, int memberId) {
+        this.bookCode = bookCode;
+        this.memberId = memberId;
+    }
+
     public String getBookCode() {
         return bookCode;
     }

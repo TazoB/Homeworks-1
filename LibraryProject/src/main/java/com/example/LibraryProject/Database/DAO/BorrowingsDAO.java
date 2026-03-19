@@ -4,6 +4,7 @@ import com.example.LibraryProject.Database.DatabaseConnectionManager;
 import com.example.LibraryProject.Model.Borrowing;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +21,11 @@ public class BorrowingsDAO {
     }
 
     public void insert(Borrowing borrowing) {
-        String INSERT = "INSERT INTO Borrowings (book_code, member_id, borrow_date, return_date) VALUES (?, ?, ?, ?);";
+        String INSERT = "INSERT INTO Borrowings (book_code, member_id) VALUES (?, ?);";
 
         try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
             ps.setString(1, borrowing.getBookCode());
             ps.setInt(2, borrowing.getMemberId());
-            ps.setDate(3, (borrowing.getBorrowDate() == null) ? null : borrowing.getBorrowDate());
-            ps.setDate(4, (borrowing.getReturnDate() == null) ? null : borrowing.getReturnDate());
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -82,17 +81,13 @@ public class BorrowingsDAO {
         try(PreparedStatement ps = connection.prepareStatement(UPDATE)) {
             ps.setDate(1, Date.valueOf(LocalDate.now()));
             ps.setString(2, bookCode);
-            ps.execute();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
 //    public void delete() {
-//
-//    }
-
-//    public void update() {
 //
 //    }
 }
