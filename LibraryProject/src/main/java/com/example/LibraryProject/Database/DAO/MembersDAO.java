@@ -93,12 +93,4 @@ public class MembersDAO {
         }
         return members;
     }
-
-//    public void delete() {
-//
-//    }
-
-//    public void update() {
-//
-//    }
 }

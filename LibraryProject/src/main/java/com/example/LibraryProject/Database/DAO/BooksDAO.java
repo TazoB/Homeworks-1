@@ -74,12 +74,4 @@ public class BooksDAO {
         }
         return books;
     }
-
-//    public void delete() {
-//
-//    }
-
-//    public void update() {
-//
-//    }
 }

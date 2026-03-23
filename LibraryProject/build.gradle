@@ -27,7 +27,8 @@ dependencies {
     implementation("org.postgresql:postgresql:42.7.10")
     implementation("tools.jackson.core:jackson-databind:3.0.4")
 
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testImplementation 'com.h2database:h2:2.2.224'
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

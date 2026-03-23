@@ -33,7 +33,7 @@ public class BorrowingsDAO {
     }
 
     public Borrowing findById(String bookCode, int memberId, Date borrowDate) {
-        String FIND_BY_ID = "SELECT * FROM Borrowings WHERE book_code = ?, member_id = ?, borrow_date = ?";
+        String FIND_BY_ID = "SELECT * FROM Borrowings WHERE book_code = ? AND member_id = ? AND borrow_date = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_BY_ID)) {
             ps.setString(1, bookCode);
@@ -86,8 +86,4 @@ public class BorrowingsDAO {
             throw new RuntimeException(e);
         }
     }
-
-//    public void delete() {
-//
-//    }
 }
