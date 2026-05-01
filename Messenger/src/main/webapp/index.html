@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Messenger</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<h2>Messenger</h2>
+
+<div class="container">
+
+    <div class="box">
+        <h3>Send Message</h3>
+        <input type="text" id="targetUser" placeholder="Target user">
+        <textarea id="messageText" placeholder="Message"></textarea>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <div class="box">
+        <h3>Register User</h3>
+        <input type="text" id="regUsername" placeholder="Username">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button onclick="registerUser()">Register</button>
+    </div>
+
+</div>
+
+<hr>
+
+<div class="box">
+    <h3>Inbox</h3>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="loadMessages()">Check Inbox</button>
+
+    <ul id="messages"></ul>
+</div>
+</body>
+</html>

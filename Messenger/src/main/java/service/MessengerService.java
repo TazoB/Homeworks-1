@@ -32,6 +32,10 @@ public class MessengerService {
 
     public boolean userExists(String username) {
         try {
+            System.out.println(
+                    entityManager.createQuery("SELECT u FROM User u", User.class)
+                            .getResultList()
+            );
             Long count = entityManager.createQuery(
                     "SELECT COUNT(u) FROM User u WHERE u.username = :username",
                      Long.class
@@ -72,6 +76,24 @@ public class MessengerService {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public User findByUsername(String username) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT u FROM User u WHERE u.username = :username",
+                            User.class)
+                    .setParameter("username", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveMessage(Message message) {
+        runInTransaction(() -> entityManager.persist(message));
     }
 
     private void runInTransaction(Runnable runnable){

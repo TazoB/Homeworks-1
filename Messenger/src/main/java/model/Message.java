@@ -36,11 +36,11 @@ public class Message {
         this.sender = sender;
     }
 
-    public User getReceiverId() {
+    public User getReceiver() {
         return receiver;
     }
 
-    public void setReceiverId(User receiver) {
+    public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
 
