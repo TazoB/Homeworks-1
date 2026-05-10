@@ -1,7 +1,7 @@
 CREATE TABLE product (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    price DOUBLE PRECISION NOT NULL,
+    price DOUBLE NOT NULL,
     quantity INT NOT NULL,
 
     warehouse_id BIGINT,
