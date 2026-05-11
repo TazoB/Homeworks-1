@@ -24,7 +24,9 @@ public class ShopService {
         this.productRepository = productRepository;
     }
 
-    public void addShop(ShopDTO shopDTO) {
+
+
+    public Shop addShop(ShopDTO shopDTO) {
         List<Product> products = getProducts(shopDTO.getProductIds());
         List<Warehouse> warehouses = getWarehouses(shopDTO.getWarehouseIds());
 
@@ -34,6 +36,7 @@ public class ShopService {
                 warehouses
         );
         shopRepository.save(shop);
+        return shop;
     }
 
     private List<Product> getProducts(List<Integer> ids) {

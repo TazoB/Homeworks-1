@@ -9,6 +9,8 @@ import com.example.Warehouses.repository.ShopRepository;
 import com.example.Warehouses.repository.WarehouseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -21,7 +23,11 @@ public class ProductService {
         this.shopRepository = shopRepository;
     }
 
-    public void addProduct(ProductDTO productDTO) {
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    public Product addProduct(ProductDTO productDTO) {
         Warehouse warehouse = warehouseRepository.findById(productDTO.getWarehouseId()).orElseThrow();
         Shop shop = shopRepository.findById(productDTO.getShopId()).orElseThrow();
 
@@ -33,5 +39,23 @@ public class ProductService {
                 warehouse
         );
         productRepository.save(product);
+        return product;
+    }
+
+    public Product updateProduct(int id, ProductDTO productDTO) {
+        Product product = productRepository.findById(id).orElseThrow();
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+        product.setQuantity(productDTO.getQuantity());
+        product.setWarehouse(warehouseRepository.findById(productDTO.getWarehouseId()).orElseThrow());
+        product.setShop(shopRepository.findById(productDTO.getShopId()).orElseThrow());
+        productRepository.save(product);
+        return product;
+    }
+
+    public Product deleteProduct(int id) {
+        Product product = productRepository.findById(id).orElseThrow();
+        productRepository.deleteById(id);
+        return product;
     }
 }

@@ -1,11 +1,12 @@
 package com.example.Warehouses.controller;
 
+import com.example.Warehouses.model.Product;
 import com.example.Warehouses.model.ProductDTO;
 import com.example.Warehouses.service.ProductService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -16,8 +17,27 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        return ResponseEntity.ok()
+                .body(productService.findAll());
+    }
+
     @PostMapping
-    public void addProduct(@RequestBody ProductDTO product) {
-        productService.addProduct(product);
+    public ResponseEntity<Product> addProduct(@RequestBody ProductDTO product) {
+        return ResponseEntity.ok()
+                .body(productService.addProduct(product));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable int id, @RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok()
+                .body(productService.updateProduct(id, productDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable int id) {
+        return ResponseEntity.ok()
+                .body(productService.deleteProduct(id));
     }
 }
