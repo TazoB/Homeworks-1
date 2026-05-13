@@ -24,7 +24,9 @@ public class ShopService {
         this.productRepository = productRepository;
     }
 
-
+    public List<Shop> findAll() {
+        return shopRepository.findAll();
+    }
 
     public Shop addShop(ShopDTO shopDTO) {
         List<Product> products = getProducts(shopDTO.getProductIds());
@@ -36,6 +38,21 @@ public class ShopService {
                 warehouses
         );
         shopRepository.save(shop);
+        return shop;
+    }
+
+    public Shop updateShop(int id, ShopDTO shopDTO) {
+        Shop shop = shopRepository.findById(id).orElseThrow();
+        shop.setName(shopDTO.getName());
+        shop.setProducts(getProducts(shopDTO.getProductIds()));
+        shop.setWarehouses(getWarehouses(shopDTO.getWarehouseIds()));
+        shopRepository.save(shop);
+        return shop;
+    }
+
+    public Shop deleteShop(int id) {
+        Shop shop = shopRepository.findById(id).orElseThrow();
+        shopRepository.deleteById(id);
         return shop;
     }
 

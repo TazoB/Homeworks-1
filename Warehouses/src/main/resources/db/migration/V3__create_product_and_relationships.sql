@@ -1,7 +1,9 @@
+CREATE SEQUENCE product_seq START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE product (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    price DOUBLE NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
     quantity INT NOT NULL,
 
     warehouse_id BIGINT,
