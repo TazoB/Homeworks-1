@@ -1,3 +1,27 @@
 spring:
   application:
     name: market
+  datasource:
+    url: ${URL}
+    username: ${USER}
+    password: ${PASS}
+    driver-class-name: org.postgresql.Driver
+  output:
+    ansi:
+      enabled: ALWAYS
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.flywaydb: info
