@@ -32,4 +32,12 @@ public class Item {
 
     @Column(name = "photo_url")
     private String photoUrl;
+
+    public Item(String name, Double price, String description, LocalDateTime submissionTime, String photoUrl) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.submissionTime = submissionTime;
+        this.photoUrl = photoUrl;
+    }
 }
