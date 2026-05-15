@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>eMarketplace</title>
     <link rel="stylesheet" href="../static/index.css" />
-    <script src="../static/app.js" defer></script>
+    <script src="../static/app.js"></script>
 </head>
 
 <body>
@@ -18,12 +18,15 @@
 
         <div class="item-count" id="item-count"></div>
 
-        <div class="grid" id="items-grid"></div>
-        <div class="pagination">
-            <button class="page-btn" id="prev-page">&#8249;</button>
+        <div class="grid" id="items-grid">
 
-            <div class="page-number" id="page-number">1</div>
-            <button class="page-btn" id="next-page">&#8250;</button>
+
+        </div>
+        <div class="pagination">
+            <button class="page-btn" id="prev-page" onclick="goToPreviousPage()">&#8249;</button>
+
+            <div class="page-number" id="page-number">2</div>
+            <button class="page-btn" id="next-page" onclick="goToNextPage()">&#8250;</button>
         </div>
     </div>
 </body>
