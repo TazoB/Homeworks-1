@@ -4,6 +4,8 @@ import com.example.market.model.Item;
 import com.example.market.model.ItemRequestDTO;
 import com.example.market.model.ItemResponseDTO;
 import com.example.market.repository.MarketRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,16 @@ public class MarketService {
 
     public MarketService(MarketRepository marketRepository) {
         this.marketRepository = marketRepository;
+    }
+
+    public List<ItemResponseDTO> findAll(Pageable pageable) {
+        Page<Item> items = marketRepository.findAll(pageable);
+        List<ItemResponseDTO> itemResponseDTOS = new ArrayList<>();
+
+        for (Item item : items) {
+            itemResponseDTOS.add(createItemResponseDTO(item));
+        }
+        return itemResponseDTOS;
     }
 
     public List<ItemResponseDTO> findAll() {
